@@ -1,0 +1,7 @@
+<ul class="pagination" *ngIf="pageCount">
+    <li class="page-item"><a class="page-link" href="#" (click)="previousPage()">Previous</a></li>
+    <ng-container *ngFor="let page of pageCount">
+      <li class="page-item"><a class="page-link" href="#" (click)="getPage(page)">{{page}}</a></li>
+    </ng-container>
+    <li class="page-item"><a class="page-link" href="#" (click)="nextPage()">Next</a></li>
+  </ul>

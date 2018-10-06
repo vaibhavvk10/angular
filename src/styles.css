@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body{
+  background-color: #CCCCA2;
+}
+.top-buffer { margin-top:10px; }
+.pointer{
+  cursor: pointer;
+}
+.mat-dialog-content{
+  overflow: hidden !important;
+}
+.mat-dialog-title {
+  border-bottom: 2px solid #D74;
+}

@@ -1,0 +1,73 @@
+<div class="container">
+  <h2 mat-dialog-title>User Detail</h2>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>First Name:</label>
+      </div>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" [(ngModel)]="userDetail.firstName" />
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-3">
+        <label>Last Name:</label>
+      </div>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" [(ngModel)]="userDetail.lastName" />
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-3">
+        <label>Date of birth:</label>
+      </div>
+      <div class="col-sm-9">
+        <input class="form-control" type="date" [ngModel]="userDetail.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="userDetail.dateOfBirth = $event" />
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-3">
+        <label>Profession:</label>
+      </div>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" [(ngModel)]="userDetail.profession" />
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-3">
+        <label>Salary:</label>
+      </div>
+      <div class="col-sm-9">
+        <input class="form-control" type="number" [(ngModel)]="userDetail.salary" />
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-3">
+        <label>Is Active:</label>
+      </div>
+      <div class="col-sm-9">
+        <mat-slide-toggle [checked]="userDetail.isActive" [(ngModel)]="userDetail.isActive"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-3">
+        <label>Upload image:</label>
+      </div>
+      <div class="col-sm-6">
+        <input class="form-control" type="file" (change)="onFileChange($event)" />
+      </div>
+      <div class="col-sm-3">
+        <img  [src]="url" height="50" width="50">
+      </div> <br />
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="row">
+    <div class="col-sm-6  text-right">
+      <button mat-button [mat-dialog-close]="true" class="btn btn-primary" (click)="onSave(isSaved)">Save</button>
+    </div>
+    <div class="col-sm-6  text-left">
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+      <button mat-button [mat-dialog-close]="false" class="btn">Cencal</button>
+    </div>
+  </mat-dialog-actions>
+</div>
