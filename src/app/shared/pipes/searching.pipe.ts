@@ -7,7 +7,7 @@ export class SearchByPipe implements PipeTransform {
       return records;
     }
     return records.filter(function (record) {
-      return record.firstName.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+      return record.categoryName.toLowerCase().indexOf(searchText.toLowerCase());
     });
   }
 }

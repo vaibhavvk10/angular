@@ -1,0 +1,15 @@
+.busyIndicator-hidden {
+  visibility: hidden;
+}
+.busyIndicator-overlay {
+  position: absolute;
+  width:100%;
+  text-outline: 50%;
+  left: 45%;
+  top:50%;
+  opacity: 1;
+  z-index: 500000;
+}
+.hidden{
+  display: block;
+}

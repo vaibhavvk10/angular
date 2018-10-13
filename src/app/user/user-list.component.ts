@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../shared/models/user.model';
+import { User } from '../shared/models/user-model/user.model';
 import { UserService } from '../shared/services/user.service';
 import { UserDetailsDialogComponent } from './user-details-dialog.component';
 import { MatDialog } from '@angular/material';
@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit {
   searchText = '';
   pageCount: number[];
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 5;
   usersCount = 0;
   constructor(private userService: UserService, public dialog: MatDialog,
     private busyIndicatorService: BusyIndicatorService) {
@@ -47,7 +47,7 @@ export class UserListComponent implements OnInit {
 
   public onDelete(id: number): void {
     const dialogRef = this.dialog.open(DeleteUserComponent, {
-      height: '200px',
+      height: '225px',
       width: '400px',
       data: id,
     });
@@ -59,21 +59,27 @@ export class UserListComponent implements OnInit {
   }
 
   private loadUsers(pageIndex, pageSize): void {
-    this.busyIndicatorService.display(true);
+    this.busyIndicatorService.show();
     this.userService.getUsers(pageIndex, pageSize).subscribe((result: any) => {
       this.users = result.users;
       this.usersCount = result.usersCount;
-      this.busyIndicatorService.display(false);
+      this.busyIndicatorService.hide();
     });
   }
 
   public getPage(event) {
-    this.pageIndex = this.pageIndex;
+    this.pageIndex = event.pageIndex;
     this.loadUsers(event.pageIndex, this.pageSize);
   }
+
   public sort(property) {
     this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
+    console.log(this.isDesc);
+  }
+
+  trackByFn(index) {
+   return index;
   }
 }

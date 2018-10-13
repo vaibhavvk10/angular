@@ -3,41 +3,45 @@
     <div class="col-sm-3 text-left">
       <h2>Manage User</h2>
     </div>
-    <div class="col-sm-6 text-center">
+    <div class="col-sm-6 text-center align-self-center">
       <input type="text" placeholder="Search User..." [(ngModel)]="searchText" />
     </div>
     <div class="col-sm-3 text-right">
       <button type="button" class="btn" (click)="onEdit()">Add New User</button>
     </div>
   </div>
-  <table *ngIf="users" class="table table-striped table-hover table-bordered">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th class="pointer" (click)="sort('firstName')">First Name</th>
-        <th class="pointer" (click)="sort('lastName')">Last Name</th>
-        <th class="pointer" (click)="sort('dateOfBirth')">Date Of Birth</th>
-        <th class="pointer" (click)="sort('profession')">Profession</th>
-        <th class="pointer" (click)="sort('salary')">Salary</th>
-        <th>Is Active</th>
-        <th class="text-center" colspan="2">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users | searchBy: searchText | orderBy: {property: column, direction: direction}">
-        <td><img src="data:image/jpeg;base64,{{user.userImage}}"  height="50" width="50"/></td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.dateOfBirth | date}}</td>
-        <td>{{user.profession}}</td>
-        <td>{{user.salary}}</td>
-        <td class="text-center">
-          <mat-slide-toggle [checked]="user.isActive"></mat-slide-toggle>
-        </td>
-        <td class="text-center"><button type="button" class="btn btn-outline-primary btn-block" (click)="onEdit(user)">Edit</button></td>
-        <td class="text-center"><button type="button" class="btn btn-outline-primary btn-block" (click)="onDelete(user.id)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-xl-12 col-sm-12">
+      <table *ngIf="users" class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th class="pointer" (click)="sort('firstName')">First Name</th>
+            <th class="pointer" (click)="sort('lastName')">Last Name</th>
+            <th class="pointer" (click)="sort('dateOfBirth')">Date Of Birth</th>
+            <th class="pointer" (click)="sort('profession')">Profession</th>
+            <th class="pointer" (click)="sort('salary')">Salary</th>
+            <th>Is Active</th>
+            <th class="text-center" colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users | searchBy: searchText | orderBy: {property: column, direction: direction}; trackBy: trackByFn">
+            <td><img src="data:image/jpeg;base64,{{user.userImage}}" height="50" width="50" /></td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.dateOfBirth | date}}</td>
+            <td>{{user.profession}}</td>
+            <td>{{user.salary}}</td>
+            <td class="text-center">
+              <mat-slide-toggle [checked]="user.isActive"></mat-slide-toggle>
+            </td>
+            <td class="text-center"><button type="button" class="btn btn-outline-primary btn-block" (click)="onEdit(user)">Edit</button></td>
+            <td class="text-center"><button type="button" class="btn btn-outline-primary btn-block" (click)="onDelete(user.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <app-paging *ngIf="usersCount !== 0" [pageSize]="pageSize" [totalRecords]="usersCount" (indexChange)="getPage($event)"></app-paging>
 </div>

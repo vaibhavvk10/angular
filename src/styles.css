@@ -13,3 +13,9 @@ body{
 .mat-dialog-title {
   border-bottom: 2px solid #D74;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }

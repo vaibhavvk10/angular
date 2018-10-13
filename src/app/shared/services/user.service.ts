@@ -1,10 +1,9 @@
-
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/user.model';
+import { User } from '../models/user-model/user.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
-import { UserData } from '../models/user-data.model';
+import { UserData } from '../models/user-model/user-data.model';
 
 @Injectable()
 export class UserService {
@@ -19,19 +18,19 @@ export class UserService {
       }));
   }
 
-  public saveUser(user: User): Observable<boolean> {
+  public saveUsers(user: User): Observable<boolean> {
     return this.http.post('http://localhost:61677/api/users', user).pipe(map((res: any) => {
       return <boolean>res;
     }));
   }
 
-  public updateUser(id: number, user: User): Observable<boolean> {
+  public updateUsers(id: number, user: User): Observable<boolean> {
     return this.http.put('http://localhost:61677/api/users/' + id, user).pipe(map((res: any) => {
       return <boolean>res;
     }));
   }
 
-  public deleteUser(id: number): Observable<boolean> {
+  public deleteUsers(id: number): Observable<boolean> {
     return this.http.delete('http://localhost:61677/api/users/' + id).pipe(map((res: any) => {
       return <boolean>res;
     }));

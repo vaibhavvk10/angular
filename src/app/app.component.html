@@ -1,14 +1,19 @@
+<busy-indicator></busy-indicator>
 <div class="row" style="background-color: #e9ecef">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-8 text-center">
-    <h1>Expense Management</h1>
-    <p>Organized All Expenses in One Place</p>
+  <div class="col-xl-2 col-sm-2"></div>
+  <div class="col-xl-6 col-sm-6 text-left">
+    <h2>Expense Management</h2>
+    <p style="font-size: smaller;text-align: center;">Organized All Expenses in One Place</p>
   </div>
-  <!-- <div style="position:absolute; right:153px;top: 10px;"><a href="#">Log out</a></div> -->
-  <div class="col-sm-2 text-left"><a href="#">Log out</a></div>
-</div>
 
-<user-list></user-list>
-<br><br>
-<app-busy-indicator *ngIf="showLoader"></app-busy-indicator>
-<!-- <category-list></category-list> -->
+  <div class="col-xl-4 col-sm-4 text-left"><a href="#">Log out</a></div>
+</div>
+<div class="row" style="background-color: #e9ecef">
+  <div class="col-sm-12 text-center link-style">
+    <a routerLink="">Home</a>
+    <a routerLink="/users">Manage Users</a>
+    <a routerLink="/categories">Manage Categories</a>
+    <a routerLink="/items">Manage Items</a>
+  </div>
+</div>
+<router-outlet></router-outlet>

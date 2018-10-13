@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { User } from '../shared/models/user.model';
+import { User } from '../shared/models/user-model/user.model';
 import { UserService } from '../shared/services/user.service';
 import { isNullOrUndefined } from 'util';
 
@@ -21,13 +21,13 @@ export class UserDetailsDialogComponent {
 
   onSave(isSaved: boolean) {
     if (isNullOrUndefined(this.userDetail.id) || this.userDetail.id === 0) {
-      this.userService.saveUser(this.userDetail).subscribe(result => {
+      this.userService.saveUsers(this.userDetail).subscribe(result => {
         if (result) {
           isSaved = result;
         }
       });
     } else {
-      this.userService.updateUser(this.userDetail.id, this.userDetail).subscribe(result => {
+      this.userService.updateUsers(this.userDetail.id, this.userDetail).subscribe(result => {
         if (result) {
           isSaved = result;
         }
@@ -43,7 +43,7 @@ export class UserDetailsDialogComponent {
       reader.onload = () => {
         this.url = reader.result;
         this.userDetail.userImage = this.url;
-        this.userDetail.userImage =  reader.result.split(',')[1];
+        this.userDetail.userImage = reader.result.split(',')[1];
       };
     }
   }

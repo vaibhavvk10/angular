@@ -1,2 +1,7 @@
-<mat-spinner style="position: absolute; top:40%; left: 50%;"></mat-spinner>
-
+<div [class.busyIndicator-hidden]="!show">
+  <div class="busyIndicator-overlay" style="position: fixed;left:45%; top:40%; width: 122px;">
+    <div>
+      <mat-progress-spinner mode="indeterminate" *ngIf="show"></mat-progress-spinner>
+    </div>
+  </div>
+</div>
