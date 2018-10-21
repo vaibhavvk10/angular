@@ -1,8 +1,10 @@
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders } from '@angular/core';
 import { OrderrByPipe } from './shared/pipes/sorting.pipe';
 import { SearchByPipe } from './shared/pipes/searching.pipe';
 import { PagingComponent } from './shared/common-component/paging.component';
 import { CommonModule } from '@angular/common';
+import { MenuComponent } from './shared/common-component/menu.component';
+import { SearchNotificationService } from './shared/services/search-notification.service';
 
 @NgModule({
   imports: [
@@ -14,7 +16,15 @@ import { CommonModule } from '@angular/common';
   ],
   exports: [
     OrderrByPipe, SearchByPipe, PagingComponent
-  ]
+  ],
+  providers: []
 })
 
-export class SharedModule {}
+export class SharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [SearchNotificationService]
+    };
+  }
+}

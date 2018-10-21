@@ -19,3 +19,27 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }
+.container {padding-bottom: 15px;}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #f8f9fa !important;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #47ff71 !important;
+}
+.link-style a{
+  display: inline-block;
+  margin-left: 5px;
+  border: 1px solid darkred;
+  border-radius: 0px 7px 0px 7px;
+  padding: 1px 15px 1px 15px;
+  font-size: 12px;
+  color: white !important;
+  background-color: #00016E;
+}
+.bg-primary {
+  background-color: #671a14!important;
+}

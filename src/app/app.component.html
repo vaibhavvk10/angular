@@ -1,19 +1,14 @@
 <busy-indicator></busy-indicator>
-<div class="row" style="background-color: #e9ecef">
-  <div class="col-xl-2 col-sm-2"></div>
-  <div class="col-xl-6 col-sm-6 text-left">
-    <h2>Expense Management</h2>
-    <p style="font-size: smaller;text-align: center;">Organized All Expenses in One Place</p>
-  </div>
+<div class="container" style="background-color:#d4c39394">
+  <div class="row">
+    <!-- <div class="col-xl-2 col-sm-2"></div> -->
+    <div class="col-xl-8 col-sm-8">
+      <h2>Expense Management</h2>
+      <p style="font-size: smaller;">Organized All Expenses in One Place</p>
+    </div>
 
-  <div class="col-xl-4 col-sm-4 text-left"><a href="#">Log out</a></div>
-</div>
-<div class="row" style="background-color: #e9ecef">
-  <div class="col-sm-12 text-center link-style">
-    <a routerLink="">Home</a>
-    <a routerLink="/users">Manage Users</a>
-    <a routerLink="/categories">Manage Categories</a>
-    <a routerLink="/items">Manage Items</a>
+    <div class="col-xl-4 col-sm-4 text-left"><a href="#">Log out</a></div>
   </div>
+  <app-menu></app-menu>
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

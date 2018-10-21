@@ -6,9 +6,6 @@ import { CategoryRoutingModule } from './category-routing.module';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatSlideToggleModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { PagingComponent } from '../shared/common-component/paging.component';
-import { OrderrByPipe } from '../shared/pipes/sorting.pipe';
-import { SearchByPipe } from '../shared/pipes/searching.pipe';
 import { SharedModule } from '../shared.module';
 
 @NgModule({

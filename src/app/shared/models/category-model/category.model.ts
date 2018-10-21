@@ -3,6 +3,6 @@ export class Category {
   categoryName: string;
   categoryDescription: string;
   createdDate: Date;
-  updateDate: Date;
+  updatedDate: Date;
   isActive: boolean;
 }

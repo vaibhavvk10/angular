@@ -1,0 +1,11 @@
+.alert-danger {
+    color: var(--blue);
+    background-color: var(--white);
+    border-color: var(--white);
+}
+.alert {
+    position: relative;
+    margin-bottom: 0rem;
+    padding: 0rem 0rem;
+    border-radius: .25rem;
+}

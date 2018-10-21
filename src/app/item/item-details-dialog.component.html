@@ -1,0 +1,59 @@
+<div class="container">
+    <h3 mat-dialog-title>Item Detail</h3>
+    <mat-dialog-content>
+        <div class="row">
+            <div class="col-sm-4">
+                <label>Item Name:</label>
+            </div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" [(ngModel)]="itemDetail.itemName" #itemName="ngModel" required
+                    minlength="4" />
+                <div *ngIf="itemName.errors && (itemName.dirty || itemName.touched)" class="alert alert-danger">
+                    <small>Item Name is required (minimum 4 characters).</small>
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-4">
+                <label>Category Id:</label>
+            </div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" [(ngModel)]="itemDetail.categoryId" #categoryId="ngModel"
+                    required minlength="4" />
+                <div *ngIf="categoryId.errors && (categoryId.dirty || categoryId.touched)" class="alert alert-danger">
+                    <small>categoryId is required.</small>
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-4">
+                <label>Created Date:</label>
+            </div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" [(ngModel)]="itemDetail.createdDate" #createdDate="ngModel"
+                    required minlength="4" />
+                <div *ngIf="createdDate.errors && (createdDate.dirty || createdDate.touched)" class="alert alert-danger">
+                    <small>Date is required.</small>
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer">
+            <div class="col-sm-4">
+                <label>Is Active:</label>
+            </div>
+            <div class="col-sm-8">
+                <mat-slide-toggle [checked]="itemDetail.isActive" [(ngModel)]="itemDetail.isActive"></mat-slide-toggle>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3  text-right">
+            <button mat-button [mat-dialog-close]="true" class="btn btn-outline-primary btn-block" (click)="onSave(isSaved)">Save</button>
+        </div>
+        <div class="col-sm-3  text-left">
+            <button mat-button [mat-dialog-close]="false" class="btn btn-outline-secondary btn-block">Cancel</button>
+        </div>
+        <div class="col-sm-3"></div>
+    </mat-dialog-actions>
+</div>

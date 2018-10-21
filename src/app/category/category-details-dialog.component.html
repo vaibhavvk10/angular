@@ -6,7 +6,10 @@
         <label>Category Name:</label>
       </div>
       <div class="col-sm-8">
-        <input class="form-control" type="text" [(ngModel)]="categoryDetail.categoryName" />
+        <input class="form-control" type="text" [(ngModel)]="categoryDetail.categoryName" #name="ngModel" required minlength="4"/>
+        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+          <small>Name is required (minimum 4 characters).</small>
+        </div>
       </div>
     </div>
     <div class="row top-buffer">
@@ -22,7 +25,8 @@
         <label>Created Date:</label>
       </div>
       <div class="col-sm-8">
-        <input class="form-control" type="date" [ngModel]="categoryDetail.createdDate | date:'yyyy-MM-dd'" (ngModelChange)="categoryDetail.createdDate = $event" />
+        <input class="form-control" type="date" [ngModel]="categoryDetail.createdDate | date:'yyyy-MM-dd'"
+          (ngModelChange)="categoryDetail.createdDate = $event" />
       </div>
     </div>
     <div class="row top-buffer">
@@ -40,7 +44,7 @@
       <button mat-button [mat-dialog-close]="true" class="btn btn-outline-primary btn-block" (click)="onSave(isSaved)">Save</button>
     </div>
     <div class="col-sm-3  text-left">
-      <button mat-button [mat-dialog-close]="false" class="btn btn-outline-primary btn-block">Cancel</button>
+      <button mat-button [mat-dialog-close]="false" class="btn btn-outline-secondary btn-block">Cancel</button>
     </div>
     <div class="col-sm-3"></div>
   </mat-dialog-actions>

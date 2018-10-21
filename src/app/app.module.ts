@@ -9,18 +9,24 @@ import { BusyIndicatorComponent } from './shared/common-component/busy-indicator
 import { BusyIndicatorService } from './shared/common-component/busy-indicator.service';
 import { CategoryService } from './shared/services/category.service';
 import { AppRoutingModule } from './app-routing.module';
+import { ItemService } from './shared/services/item.service';
+import { SearchNotificationService } from './shared/services/search-notification.service';
+import { SharedModule } from './shared.module';
+import { MenuComponent } from './shared/common-component/menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent, BusyIndicatorComponent
+    AppComponent, BusyIndicatorComponent, MenuComponent
   ],
 
   imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatProgressSpinnerModule, AppRoutingModule
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatProgressSpinnerModule, AppRoutingModule,
+    SharedModule.forRoot()
   ],
   entryComponents: [BusyIndicatorComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-  providers: [UserService, BusyIndicatorService, CategoryService],
+  providers: [UserService, BusyIndicatorService, CategoryService, ItemService],
+  exports: [],
   bootstrap: [AppComponent]
 })
 

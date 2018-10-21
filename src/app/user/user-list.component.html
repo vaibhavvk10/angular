@@ -1,10 +1,11 @@
-<div class="container">
+
+<div class="container" style="background-color: white">
   <div class="row">
     <div class="col-sm-3 text-left">
       <h2>Manage User</h2>
     </div>
     <div class="col-sm-6 text-center align-self-center">
-      <input type="text" placeholder="Search User..." [(ngModel)]="searchText" />
+      <!-- <input type="text" placeholder="Search User..." [(ngModel)]="searchText" /> -->
     </div>
     <div class="col-sm-3 text-right">
       <button type="button" class="btn" (click)="onEdit()">Add New User</button>
@@ -26,7 +27,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users | searchBy: searchText | orderBy: {property: column, direction: direction}; trackBy: trackByFn">
+            <!-- searchBy: { firstName: searchText, Age:searchText } -->
+          <tr *ngFor="let user of users | searchBy: { firstName: searchText } | orderBy: {property: column, direction: direction}; trackBy: trackByFn">
             <td><img src="data:image/jpeg;base64,{{user.userImage}}" height="50" width="50" /></td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>

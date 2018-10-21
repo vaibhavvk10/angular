@@ -1,7 +1,7 @@
 export class Item {
-  id: number[];
+  id: number;
   itemName: string;
-  categoryId: number[];
+  categoryId: number;
   createdDate: Date;
   updatedDate: Date;
   isActive: boolean;

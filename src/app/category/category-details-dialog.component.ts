@@ -6,7 +6,8 @@ import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'category-details',
-  templateUrl: './category-details-dialog.component.html'
+  templateUrl: './category-details-dialog.component.html',
+  styleUrls: ['./category-details-dialog.component.css']
 })
 
 export class CategoryDetailsDialogComponent {

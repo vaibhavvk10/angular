@@ -1,28 +1,29 @@
-<div class="container">
+
+<div class="container" style="background-color: white">
   <div class="row">
-    <div class="col-sm-3 text-left">
+    <div class="col-sm-4 text-left">
       <h2>Manage Item</h2>
     </div>
-    <div class="col-sm-6 text-center">
+    <div class="col-sm-4 text-center">
       <input type="text" placeholder="Search Item..." [(ngModel)]="searchText" />
     </div>
-    <div class="col-sm-3 text-right">
+    <div class="col-sm-4 text-right">
       <button type="button" class="btn" (click)="onEdit()">Add New Item</button>
     </div>
   </div>
   <table *ngIf='items' class="table table-striped table-hover table-bordered">
     <thead>
       <tr>
-        <th>Item Name</th>
-        <th>Category Id</th>
-        <th>Created Date</th>
-        <th>Updated Date</th>
+        <th class="pointer" (click)="sort('itemName')">Item Name</th>
+        <th class="pointer" (click)="sort('categoryId')">Category Id</th>
+        <th class="pointer" (click)="sort('createdDate')">Created Date</th>
+        <th class="pointer" (click)="sort('updatedDate')">Updated Date</th>
         <th>Is Active</th>
         <th class="text-center" colspan="2">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of items">
+      <tr *ngFor="let item of items | searchBy: { searchText: searchText, column: column} | orderBy: {property: column, direction: direction}">
         <td>{{ item.itemName }}</td>
         <td>{{ item.categoryId }}</td>
         <td>{{ item.createdDate | date }}</td>

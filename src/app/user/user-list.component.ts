@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material';
 import { isNullOrUndefined } from 'util';
 import { DeleteUserComponent } from './delete-user.component';
 import { BusyIndicatorService } from '../shared/common-component/busy-indicator.service';
+import { SearchNotificationService } from '../shared/services/search-notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'user-list',
@@ -22,9 +24,13 @@ export class UserListComponent implements OnInit {
   pageIndex = 1;
   pageSize = 5;
   usersCount = 0;
+  subscription: Subscription;
   constructor(private userService: UserService, public dialog: MatDialog,
-    private busyIndicatorService: BusyIndicatorService) {
-
+    private busyIndicatorService: BusyIndicatorService,
+    private messageService: SearchNotificationService) {
+    this.subscription = this.messageService.messageSubject$.subscribe(v => {
+      this.searchText = v
+    });
   }
 
   ngOnInit() {
@@ -47,7 +53,7 @@ export class UserListComponent implements OnInit {
 
   public onDelete(id: number): void {
     const dialogRef = this.dialog.open(DeleteUserComponent, {
-      height: '225px',
+      height: '200px',
       width: '400px',
       data: id,
     });
@@ -80,6 +86,12 @@ export class UserListComponent implements OnInit {
   }
 
   trackByFn(index) {
-   return index;
+    return index;
+  }
+
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 }

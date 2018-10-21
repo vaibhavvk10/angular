@@ -1,4 +1,6 @@
-<div class="container">
+
+
+<div class="container" style="background-color: white">
   <div class="row">
     <div class="col-sm-4 text-left">
       <h2>Manage Category</h2>
@@ -22,7 +24,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let category of categories | searchBy: searchText | orderBy: {property: column, direction: direction}">
+      <tr *ngFor="let category of categories | searchBy: { categoryName: searchText } | orderBy: {property: column, direction: direction}">
         <td>{{category.categoryName}}</td>
         <td>{{category.categoryDescription}}</td>
         <td>{{category.createdDate | date}}</td>

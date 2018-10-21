@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../shared/services/category.service';
-import { Category } from '../shared/models/category-model/category.model';
 import { MatDialog } from '@angular/material';
 import { isNullOrUndefined } from 'util';
 import { CategoryDetailsDialogComponent } from './category-details-dialog.component';
 import { BusyIndicatorService } from '../shared/common-component/busy-indicator.service';
 import { DeleteCategoryComponent } from './delete-category.component';
+import { Category } from '../shared/models/category-model/category.model';
+import { SearchNotificationService } from '../shared/services/search-notification.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'category-list',
@@ -15,16 +17,20 @@ import { DeleteCategoryComponent } from './delete-category.component';
 export class CategoryListComponent implements OnInit {
   categories: Category[];
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 5;
   pageCount: number[];
   categoriesCount = 0;
   isDesc = false;
   column = 'categoryName';
   direction: number;
   searchText = '';
-
+  subscription: Subscription;
   constructor(private categoryService: CategoryService, public dialog: MatDialog,
-    private busyIndicatorService: BusyIndicatorService) {
+    private busyIndicatorService: BusyIndicatorService,
+    private messageService: SearchNotificationService) {
+      this.messageService.messageSubject$.subscribe(v => {
+        this.searchText = v
+      });
 
   }
 
@@ -69,7 +75,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   public getPage(event) {
-    this.pageIndex = this.pageIndex;
+    this.pageIndex = event.pageIndex;
     this.loadCategories(event.pageIndex, this.pageSize);
   }
 
@@ -77,5 +83,10 @@ export class CategoryListComponent implements OnInit {
     this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 }
