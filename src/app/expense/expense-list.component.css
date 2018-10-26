@@ -1,0 +1,22 @@
+.container {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+/* tbody {
+    display:block;
+    height:300px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+thead {
+    width: calc( 100% - 1em )
+} */
+
+.sel-row-colour{
+    background-color: red !important;
+}

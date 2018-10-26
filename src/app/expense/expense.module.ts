@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ExpenseRoutingModule } from './expense-routing.module';
 import { AddExpenseComponent } from './add-expense.component';
 import { ExpenseListComponent } from './expense-list.component';
 import { SharedModule } from '../shared.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MenuComponent } from '../shared/common-component/menu.component';
 
 @NgModule({
-    imports: [ ExpenseRoutingModule, SharedModule, CommonModule, FormsModule  ],
+    imports: [ ExpenseRoutingModule, SharedModule, CommonModule, FormsModule ],
 
     providers: [],
 
@@ -16,7 +15,8 @@ import { MenuComponent } from '../shared/common-component/menu.component';
 
     entryComponents: [],
 
-    exports: []
+    exports: [],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 
 export class ExpenseModule { }

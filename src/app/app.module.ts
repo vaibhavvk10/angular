@@ -13,6 +13,7 @@ import { ItemService } from './shared/services/item.service';
 import { SearchNotificationService } from './shared/services/search-notification.service';
 import { SharedModule } from './shared.module';
 import { MenuComponent } from './shared/common-component/menu.component';
+import { ExpenseService } from './shared/services/expense.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MenuComponent } from './shared/common-component/menu.component';
   ],
   entryComponents: [BusyIndicatorComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-  providers: [UserService, BusyIndicatorService, CategoryService, ItemService],
+  providers: [UserService, BusyIndicatorService, CategoryService, ItemService, ExpenseService],
   exports: [],
   bootstrap: [AppComponent]
 })

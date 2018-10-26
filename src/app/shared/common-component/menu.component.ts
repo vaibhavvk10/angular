@@ -9,8 +9,7 @@ import { SearchNotificationService } from '../services/search-notification.servi
 
 export class MenuComponent {
     constructor(private messageService: SearchNotificationService) {}
-    onTextChange(event){
+    onTextChange(event) {
       this.messageService.setMessage(event.target.value);
     }
-   
 }

@@ -7,7 +7,6 @@ import { DeleteItemComponent } from './delete-item.component';
 import { ItemRoutingModule } from './item-routing.module';
 import { SharedModule } from '../shared.module';
 import { ItemDetailsDialogComponent } from './item-details-dialog.component';
-import { MenuComponent } from '../shared/common-component/menu.component';
 
 @NgModule({
   imports: [ SharedModule, ItemRoutingModule, CommonModule, MatDialogModule, FormsModule, MatSlideToggleModule ],

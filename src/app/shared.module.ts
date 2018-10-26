@@ -3,19 +3,19 @@ import { OrderrByPipe } from './shared/pipes/sorting.pipe';
 import { SearchByPipe } from './shared/pipes/searching.pipe';
 import { PagingComponent } from './shared/common-component/paging.component';
 import { CommonModule } from '@angular/common';
-import { MenuComponent } from './shared/common-component/menu.component';
 import { SearchNotificationService } from './shared/services/search-notification.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
     // dep modules
-    CommonModule
+    CommonModule, MatTooltipModule
   ],
   declarations: [
     OrderrByPipe, SearchByPipe, PagingComponent
   ],
   exports: [
-    OrderrByPipe, SearchByPipe, PagingComponent
+    OrderrByPipe, SearchByPipe, PagingComponent, MatTooltipModule
   ],
   providers: []
 })

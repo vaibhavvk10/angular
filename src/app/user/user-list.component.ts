@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../shared/models/user-model/user.model';
 import { UserService } from '../shared/services/user.service';
 import { UserDetailsDialogComponent } from './user-details-dialog.component';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './user-list.component.html'
 })
 
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   users: User[];
   isDesc = false;
   column = 'firstName';
@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadUsers(this.pageIndex, this.pageSize);
   }
 
@@ -85,13 +85,10 @@ export class UserListComponent implements OnInit {
     console.log(this.isDesc);
   }
 
-  trackByFn(index) {
-    return index;
-  }
-
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
+    if (!isNullOrUndefined(this.subscription)) {
+      this.subscription.unsubscribe();
+    }
   }
 }

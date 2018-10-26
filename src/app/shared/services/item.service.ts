@@ -17,6 +17,12 @@ export class ItemService {
         return <ItemData>res;
       }));
   }
+  public getItemsByCategoryId(categoryId: number): Observable<Item[]> {
+    return this.http.get('http://localhost:61677/api/Item?categoryId=' + categoryId )
+      .pipe(map((res: any) => {
+        return <Item[]>res;
+      }));
+  }
 
   public saveItems(item: Item): Observable<boolean> {
     return this.http.post('http://localhost:61677/api/Item/', item).pipe(map((res: any) => {

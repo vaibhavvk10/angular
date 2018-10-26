@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../shared/services/category.service';
 import { MatDialog } from '@angular/material';
 import { isNullOrUndefined } from 'util';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './category-list.component.html'
 })
 
-export class CategoryListComponent implements OnInit {
+export class CategoryListComponent implements OnInit, OnDestroy {
   categories: Category[];
   pageIndex = 1;
   pageSize = 5;
@@ -28,13 +28,12 @@ export class CategoryListComponent implements OnInit {
   constructor(private categoryService: CategoryService, public dialog: MatDialog,
     private busyIndicatorService: BusyIndicatorService,
     private messageService: SearchNotificationService) {
-      this.messageService.messageSubject$.subscribe(v => {
-        this.searchText = v
-      });
-
+    this.messageService.messageSubject$.subscribe(v => {
+      this.searchText = v;
+    });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadCategories(this.pageIndex, this.pageSize);
   }
 
@@ -87,6 +86,8 @@ export class CategoryListComponent implements OnInit {
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
+    if (!isNullOrUndefined(this.subscription)) {
+      this.subscription.unsubscribe();
+    }
   }
 }

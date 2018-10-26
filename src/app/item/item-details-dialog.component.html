@@ -18,10 +18,12 @@
                 <label>Category Id:</label>
             </div>
             <div class="col-sm-8">
-                <input class="form-control" type="text" [(ngModel)]="itemDetail.categoryId" #categoryId="ngModel"
-                    required minlength="4" />
-                <div *ngIf="categoryId.errors && (categoryId.dirty || categoryId.touched)" class="alert alert-danger">
-                    <small>categoryId is required.</small>
+                <select  [(ngModel)]="itemDetail.categoryId"  #categoryDDL="ngModel">
+                    <option value="undefined" selected>--Select category--</option>
+                    <option *ngFor="let category of categories" value="{{category.id}}">{{category.categoryName}}</option>
+                </select>
+                <div *ngIf="categoryDDL.value === undefined && (categoryDDL.dirty || categoryDDL.touched)" class="alert alert-danger">
+                    <small>Category is required.</small>
                 </div>
             </div>
         </div>

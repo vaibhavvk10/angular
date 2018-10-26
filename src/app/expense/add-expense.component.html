@@ -1,41 +1,77 @@
-<div class="container">
-    <legend>dd</legend>
-    <div class="row text-center">
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            Select Category
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            <select>
-                <option>option 1 </option>
-                <option>option 2 </option>
-                <option>option 3 </option>
-                <option>option 4 </option>
-                <option>option 5 </option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            Text1
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            <input type="text" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            Text2
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            <input type="text" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-6 col-xl-6">
-            <input type="button" (click)="onSave()" value="Save" />
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-6">
+<div class="container" style="background-color: white;height: 445px;">
+    <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
+        <fieldset>
+            <legend>Add Expense</legend><br>
+            <div class="row top-buffer">
+                <div class="col-sm-5 text-left">
+                    Select Category
+                </div>
+                <div class="col-sm-7 text-right">
+                    <select name="categoryDDL" class="form-control" [(ngModel)]="expense.categoryId" #categoryDDL="ngModel"
+                        (change)="selectedCategory($event.target.value)" [ngClass]="{ 'is-invalid': f.submitted && categoryDDL.value === undefined }">
+                        <option [value]="undefined">--Select Category--</option>
+                        <option *ngFor="let category of categories" value="{{category.id}}">{{category.categoryName}}</option>
+                    </select>
+                    <div *ngIf="f.submitted && categoryDDL.value === undefined" class="invalid-feedback">
+                        <div>Category is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-5 text-left">
+                    Select Item
+                </div>
+                <div class="col-sm-7 text-right">
+                    <select name="itemDDL" class="form-control" [(ngModel)]="expense.itemId" #itemDDL="ngModel"
+                        matTooltipPosition="above" [ngClass]="{ 'is-invalid': f.submitted && (itemDDL.value === undefined || expense.itemId === 'undefined')}">
+                        <option [value]="undefined">--Select Item--</option>
+                        <option *ngFor="let item of items" value="{{item.id}}">{{item.itemName}}</option>
+                    </select>
+                    <span *ngIf="f.submitted" class="invalid-feedback">
+                        <span *ngIf="(itemDDL.value === undefined || expense.itemId === 'undefined')">Item is required.</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-5 text-left">
+                    Description
+                </div>
+                <div class="col-sm-7 text-right">
+                    <textarea name="desc" class="form-control" [(ngModel)]="expense.description"></textarea>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-5 text-left">
+                    Expense Date
+                </div>
+                <div class="col-sm-7 text-right">
+                    <input name="exDate" class="form-control" type="date" [(ngModel)]="expense.expenseDateTime" #exDate="ngModel"
+                        required [ngClass]="{ 'is-invalid': f.submitted && exDate.invalid }" />
+                    <div *ngIf="f.submitted && exDate.invalid" class="invalid-feedback">
+                        <div *ngIf="exDate.errors.required">Date is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-5 text-left">
+                    Amount
+                </div>
+                <div class="col-sm-7 text-right">
+                    <input name="amount" class="form-control" type="number" [(ngModel)]="expense.amount" #amount="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && amount.invalid }" required />
+                    <div *ngIf="f.submitted && amount.invalid" class="invalid-feedback">
+                        <div *ngIf="amount.errors.required">Amount is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary">Add</button>
+                </div>
+                <div class="col-sm-6">
 
-        </div>
-    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 </div>
