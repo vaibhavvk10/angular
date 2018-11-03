@@ -1,5 +1,5 @@
 <div class="container" style="background-color: white;height: 445px;">
-    <form name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
+    <form *ngIf="expense" name="form" (ngSubmit)="f.form.valid && onSave()" #f="ngForm" novalidate>
         <fieldset>
             <legend>Add Expense</legend><br>
             <div class="row top-buffer">
@@ -7,10 +7,10 @@
                     Select Category
                 </div>
                 <div class="col-sm-7 text-right">
-                    <select name="categoryDDL" class="form-control" [(ngModel)]="expense.categoryId" #categoryDDL="ngModel"
+                    <select  name="categoryDDL" class="form-control" [(ngModel)]="expense.categoryId" #categoryDDL="ngModel"
                         (change)="selectedCategory($event.target.value)" [ngClass]="{ 'is-invalid': f.submitted && categoryDDL.value === undefined }">
                         <option [value]="undefined">--Select Category--</option>
-                        <option *ngFor="let category of categories" value="{{category.id}}">{{category.categoryName}}</option>
+                        <option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</option>
                     </select>
                     <div *ngIf="f.submitted && categoryDDL.value === undefined" class="invalid-feedback">
                         <div>Category is required.</div>
@@ -23,9 +23,9 @@
                 </div>
                 <div class="col-sm-7 text-right">
                     <select name="itemDDL" class="form-control" [(ngModel)]="expense.itemId" #itemDDL="ngModel"
-                        matTooltipPosition="above" [ngClass]="{ 'is-invalid': f.submitted && (itemDDL.value === undefined || expense.itemId === 'undefined')}">
+                        [ngClass]="{ 'is-invalid': f.submitted && (itemDDL.value === undefined || expense.itemId === 'undefined')}">
                         <option [value]="undefined">--Select Item--</option>
-                        <option *ngFor="let item of items" value="{{item.id}}">{{item.itemName}}</option>
+                        <option *ngFor="let item of items" [value]="item.id">{{item.itemName}}</option>
                     </select>
                     <span *ngIf="f.submitted" class="invalid-feedback">
                         <span *ngIf="(itemDDL.value === undefined || expense.itemId === 'undefined')">Item is required.</span>

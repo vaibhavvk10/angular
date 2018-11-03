@@ -1,3 +1,6 @@
+import { Category } from '../category-model/category.model';
+import { Item } from '../item-model/item.model';
+
 export class Expense {
     expenseId: number;
     amount: number;
@@ -7,4 +10,6 @@ export class Expense {
     itemId: number;
     createdDate: Date;
     updatedDate: Date;
+    category: Category;
+    item: Item;
 }

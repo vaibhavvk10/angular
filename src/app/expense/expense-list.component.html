@@ -1,7 +1,7 @@
 <div class="container" style="background-color: #d4c39394">
     <div class="row">
         <div class="col-sm-5">
-            <add-expense (onSaveExpense)="onSaveExpense($event)"></add-expense>
+            <add-expense (onSaveExpense)="onSaveExpense($event)" [selectedExpenseToBeUpdate]="selectedExpenseToBeUpdate"></add-expense>
         </div>
         <div class="col-sm-7" style="background-color: white;">
             <!-- <div class="col-sm-2">
@@ -18,6 +18,21 @@
                     To
                     <input type="date">
                 </div> -->
+            <div class="row">
+                <div class="col-sm-4 text-right">
+                    Select to Search
+                </div>
+                <div class="col-sm-3 text-left">
+                    <select style="width:100%">
+                        <option value="byMonth">By Month</option>
+                        <option value="byYear">By Year</option>
+                        <option value="byFromToDate">By Date</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 text-left">
+                    <input type="text">
+                </div>
+            </div>
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
@@ -30,18 +45,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let expense of expenses">
+                    <tr *ngFor="let expense of expenses" (click)="onSelectedExpense(expense)">
                         <td><input type="checkbox" (change)="onChecked(expense, $event)"></td>
-                        <td>{{ expense.categoryId }}</td>
-                        <td>{{ expense.itemId }}</td>
-                        <td>{{ expense.description }}</td>
-                        <td>{{ expense.expenseDateTime }}</td>
+                        <td>{{ expense.category.categoryName }}</td>
+                        <td>{{ expense.item.itemName }}</td>
+                        <td><span class="read-more" [matTooltip]="expense.description" matTooltipPosition="above">
+                                {{ expense.description }}</span></td>
+                        <td>{{ expense.expenseDateTime | date }}</td>
                         <td>{{ expense.amount }}</td>
                     </tr>
                 </tbody>
             </table>
             <div class="row">
-                <div class="col-sm-12 text-right">
+                <div class="col-sm-4 text-left">
+                    Total Expenses Rs:- {{totalExpenses}}
+                </div>
+                <div class="col-sm-8 text-right">
                     <input type="button" class="btn btn-primary" (click)="onDelete()" value="Delete selected expense" />
                 </div>
             </div>

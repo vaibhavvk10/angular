@@ -14,6 +14,7 @@ export class UserService {
   public getUsers(index: number, pageSize: number): Observable<UserData> {
     return this.http.get('http://localhost:61677/api/users?index=' + index + '&pageSize=' + pageSize)
       .pipe(map((res: any) => {
+        console.log(res);
         return <UserData>res;
       }));
   }

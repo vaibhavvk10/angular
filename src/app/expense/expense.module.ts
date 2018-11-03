@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     entryComponents: [],
 
     exports: [],
-  schemas: [ NO_ERRORS_SCHEMA ]
+
+    schemas: [ NO_ERRORS_SCHEMA ]
 })
 
 export class ExpenseModule { }

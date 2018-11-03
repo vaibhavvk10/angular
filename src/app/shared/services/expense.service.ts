@@ -14,12 +14,13 @@ export class ExpenseService {
     public getExpenses(index: number, pageSize: number): Observable<ExpenseData> {
         return this.http.get('http://localhost:61677/api/Expense?index=' + index + '&pageSize=' + pageSize)
             .pipe(map((res: any) => {
+                console.log(res);
                 return <ExpenseData>res;
             }));
     }
 
     public saveExpenses(expense: Expense): Observable<boolean> {
-        return this.http.post('http://localhost:61677/api/Expense/', expense).pipe(map((res: any) => {
+        return this.http.post('http://localhost:61677/api/Expense/AddExpense', expense).pipe(map((res: any) => {
             return <boolean>res;
         }));
     }
@@ -30,8 +31,9 @@ export class ExpenseService {
         }));
     }
 
-    public deleteExpenses(id: number): Observable<boolean> {
-        return this.http.delete('http://localhost:61677/api/Expense/' + id).pipe(map((res: any) => {
+    public deleteExpenses(expenses: Expense[]): Observable<boolean> {
+        console.log(expenses);
+        return this.http.post('http://localhost:61677/api/Expense/Delete', expenses).pipe(map((res: any) => {
             return <boolean>res;
         }));
     }

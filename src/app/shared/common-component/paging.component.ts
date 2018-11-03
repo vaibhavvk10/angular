@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-paging',
   templateUrl: './paging.component.html'
 })
-export class PagingComponent implements OnInit {
+export class PagingComponent implements OnInit, OnChanges {
   @Input() public totalRecords = 0;
   @Input() pageSize = 2;
   @Output() indexChange = new EventEmitter<any>();
@@ -12,6 +13,10 @@ export class PagingComponent implements OnInit {
   pageIndex = 1;
 
   ngOnInit() {
+    this.createPaging();
+  }
+
+  createPaging() {
     const n: number = Math.floor(this.totalRecords / this.pageSize);
     let totalPages = 0;
     if (this.totalRecords / this.pageSize > n) {
@@ -20,6 +25,11 @@ export class PagingComponent implements OnInit {
       totalPages = n;
     }
     this.pageCount = Array(totalPages).fill(0).map((x, i) => i + 1); // [1,2,3,4]
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['totalRecords'] && !isNullOrUndefined(this.totalRecords)) {
+      this.createPaging();
+    }
   }
 
   public getPage(pageIndex: number) {

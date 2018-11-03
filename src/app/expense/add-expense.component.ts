@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Category } from '../shared/models/category-model/category.model';
 import { CategoryService } from '../shared/services/category.service';
 import { ItemService } from '../shared/services/item.service';
@@ -12,22 +12,36 @@ import { isNullOrUndefined } from 'util';
     styleUrls: ['./add-expense.component.css']
 
 })
-export class AddExpenseComponent implements OnInit {
+export class AddExpenseComponent implements OnInit, OnChanges {
     // tslint:disable-next-line:no-output-on-prefix
     @Output() onSaveExpense = new EventEmitter();
+    @Input() selectedExpenseToBeUpdate: Expense;
     selectedCat = null;
     selectedItem = null;
     categories: Category[];
     items: Item[];
-    pageIndex: 0;
-    pageSize: 0;
-    expense = new Expense();
+    pageIndex = 0;
+    pageSize = 0;
+    expense: Expense;
+    amount: any;
     constructor(private categoryService: CategoryService,
         private itemService: ItemService) {
 
     }
     ngOnInit() {
+        this.expense = new Expense();
         this.getCategories(this.pageIndex, this.pageSize);
+        // this.expense.itemId = this.selectedExpenseToBeUpdate.itemId;
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['selectedExpenseToBeUpdate'] && !isNullOrUndefined(this.selectedExpenseToBeUpdate)) {
+            if (this.expense.categoryId !== this.selectedExpenseToBeUpdate.categoryId) {
+                setTimeout(() => {
+                    this.selectedCategory(this.selectedExpenseToBeUpdate.categoryId);
+                });
+            }
+            this.expense = this.selectedExpenseToBeUpdate;
+        }
     }
     selectedCategory(categoryId) {
         console.log(categoryId);
@@ -36,11 +50,17 @@ export class AddExpenseComponent implements OnInit {
             this.expense.categoryId = undefined;
             console.log(categoryId);
         } else {
-            this.itemService.getItemsByCategoryId(categoryId).subscribe(result => {
-                this.expense.itemId = undefined;
-                this.items = result;
-            });
+            this.getItems(categoryId);
         }
+    }
+
+    getItems(categoryId) {
+        this.itemService.getItemsByCategoryId(categoryId).subscribe(result => {
+            if (this.expense.categoryId === undefined) {
+                this.expense.itemId = undefined;
+            }
+            this.items = result;
+        });
     }
     onSave() {
         this.expense.createdDate = new Date();
@@ -48,7 +68,7 @@ export class AddExpenseComponent implements OnInit {
     }
 
     getCategories(pageIndex, pageSize) {
-        this.categoryService.getCategories(0, 0).subscribe(result => {
+        this.categoryService.getCategories(pageIndex, pageSize).subscribe(result => {
             this.categories = result.categories;
         });
     }
