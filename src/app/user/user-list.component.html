@@ -24,6 +24,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users | searchBy: { firstName: searchText } | orderBy: {property: column, direction: direction}; trackBy: trackByFn">
+            <td><img src="data:image/jpeg;base64,{{user.userImage}}" height="50" width="50" /></td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td>{{user.dateOfBirth | date}}</td>

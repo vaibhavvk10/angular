@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Expense } from '../shared/models/expense-model/expense.model';
 import { ExpenseService } from '../shared/services/expense.service';
 import { isNullOrUndefined } from 'util';
+import { BusyIndicatorService } from '../shared/common-component/busy-indicator.service';
 
 @Component({
     selector: 'expense-list',
@@ -17,7 +18,8 @@ export class ExpenseListComponent implements OnInit {
     selectedExpenseToBeDelete = [];
     selectedExpenseToBeUpdate: Expense;
     totalExpenses = 0;
-    constructor(private expenseService: ExpenseService) {
+    constructor(private expenseService: ExpenseService,
+        private busyIndicatorService: BusyIndicatorService) {
 
     }
 
@@ -27,10 +29,12 @@ export class ExpenseListComponent implements OnInit {
 
 
     private loadExpenses(pageIndex, pageSize) {
+        this.busyIndicatorService.show();
         this.expenseService.getExpenses(pageIndex, pageSize).subscribe((result: any) => {
             this.expenses = result.expenses;
             this.expensesCount = result.expensesCount;
             this.calculateTotalExpense();
+            this.busyIndicatorService.hide();
         });
     }
     onSaveExpense(event) {
