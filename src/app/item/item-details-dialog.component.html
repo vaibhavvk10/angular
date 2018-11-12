@@ -6,10 +6,9 @@
                 <label>Item Name:</label>
             </div>
             <div class="col-sm-8">
-                <input class="form-control" type="text" [(ngModel)]="itemDetail.itemName" #itemName="ngModel" required
-                    minlength="4" />
+                <input class="form-control" type="text" [(ngModel)]="itemDetail.itemName" #itemName="ngModel" required />
                 <div *ngIf="itemName.errors && (itemName.dirty || itemName.touched)" class="alert alert-danger">
-                    <small>Item Name is required (minimum 4 characters).</small>
+                    <small>Item Name is required.</small>
                 </div>
             </div>
         </div>
@@ -32,8 +31,8 @@
                 <label>Created Date:</label>
             </div>
             <div class="col-sm-8">
-                <input class="form-control" type="text" [(ngModel)]="itemDetail.createdDate" #createdDate="ngModel"
-                    required minlength="4" />
+                <input class="form-control" [ngModel]="itemDetail.createdDate | date:'yyyy-MM-dd'" (ngModelChange)="itemDetail.createdDate = $event"
+                    #createdDate="ngModel" type="date" required />
                 <div *ngIf="createdDate.errors && (createdDate.dirty || createdDate.touched)" class="alert alert-danger">
                     <small>Date is required.</small>
                 </div>

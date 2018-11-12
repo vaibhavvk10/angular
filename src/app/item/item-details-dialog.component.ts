@@ -27,6 +27,7 @@ export class ItemDetailsDialogComponent {
 
   onSave(isSaved: boolean) {
     if (isNullOrUndefined(this.itemDetail.id) || this.itemDetail.id === 0) {
+      console.log(this.itemDetail);
       this.itemService.saveItems(this.itemDetail).subscribe(result => {
         if (result) {
           isSaved = result;

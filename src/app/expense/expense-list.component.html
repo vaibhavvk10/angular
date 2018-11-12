@@ -1,36 +1,47 @@
 <div class="container" style="background-color: #d4c39394">
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <add-expense (onSaveExpense)="onSaveExpense($event)" [selectedExpenseToBeUpdate]="selectedExpenseToBeUpdate"></add-expense>
         </div>
-        <div class="col-sm-7" style="background-color: white;">
-            <!-- <div class="col-sm-2">
-                Search By
-                <select>
-                    <option> Search </option>
-                </select>
-            </div>
-            <div class="col-sm-4">
-                From
-                <input type="date">
-            </div>
-            <div class="col-sm-4">
-                    To
-                    <input type="date">
-                </div> -->
+        <div class="col-sm-8" style="background-color: white;">
             <div class="row">
-                <div class="col-sm-4 text-right">
-                    Select to Search
-                </div>
                 <div class="col-sm-3 text-left">
-                    <select style="width:100%">
-                        <option value="byMonth">By Month</option>
-                        <option value="byYear">By Year</option>
+                    <select class="form-control" style="width:100%" [(ngModel)]="selectedSearch">
+                        <option value="byMonth" selected>By Month</option>
+
                         <option value="byFromToDate">By Date</option>
                     </select>
                 </div>
                 <div class="col-sm-4 text-left">
-                    <input type="text">
+                    <select class="form-control"  [(ngModel)]="month" *ngIf="selectedSearch === 'byMonth'">
+                        <option value="0">January</option>
+                        <option value="1">Febuary</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                    <input class="form-control" [(ngModel)]="fromDate" *ngIf="selectedSearch === 'byFromToDate'" type="date" placeholder="From Date" />
+
+                </div>
+                <div class="col-sm-4 text-right">
+                    <select class="form-control" [(ngModel)]="year" *ngIf="selectedSearch === 'byMonth'">
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                    </select>
+                    <input class="form-control" [(ngModel)]="toDate" *ngIf="selectedSearch === 'byFromToDate'" type="date" placeholder="To Date" />
+                    
+                </div>
+                <div class="col-sm-1 text-right" style="padding-left: 0px;">
+                        <input class="btn btn-primary" type="button" (click)="onSelectedSearch()" value="Go"/>
                 </div>
             </div>
             <table class="table table-striped table-hover table-bordered">

@@ -11,6 +11,7 @@ import { BusyIndicatorService } from '../shared/common-component/busy-indicator.
 })
 
 export class ExpenseListComponent implements OnInit {
+    selectedSearch = 'byMonth';
     expenses: Expense[];
     pageIndex = 1;
     pageSize = 7;
@@ -18,12 +19,19 @@ export class ExpenseListComponent implements OnInit {
     selectedExpenseToBeDelete = [];
     selectedExpenseToBeUpdate: Expense;
     totalExpenses = 0;
+    month: number;
+    year: number;
+    fromDate: Date;
+    toDate: Date;
     constructor(private expenseService: ExpenseService,
         private busyIndicatorService: BusyIndicatorService) {
 
     }
 
     ngOnInit(): void {
+        this.month = new Date().getMonth();
+        this.year = new Date().getFullYear();
+        console.log(new Date().getFullYear());
         this.loadExpenses(this.pageIndex, this.pageSize);
     }
 
@@ -55,6 +63,17 @@ export class ExpenseListComponent implements OnInit {
             this.totalExpenses = total;
         }
     }
+    onSelectedSearch(event) {
+        if (this.selectedSearch === 'byMonth' &&
+            !isNullOrUndefined(this.month) && !isNullOrUndefined(this.year)) {
+            console.log(this.month + ' ' + this.year);
+        }
+        if (this.selectedSearch === 'byFromToDate' &&
+            !isNullOrUndefined(this.fromDate) && !isNullOrUndefined(this.toDate)) {
+                console.log(this.fromDate + '  ' + this.toDate);
+        }
+        // console.log(event.target.value);
+    }
     onSelectedExpense(expense) {
         this.selectedExpenseToBeUpdate = expense;
     }
@@ -64,7 +83,16 @@ export class ExpenseListComponent implements OnInit {
             this.selectedExpenseToBeDelete.splice(index, 1);
         } else {
             expense.checked = event.target.checked;
-            this.selectedExpenseToBeDelete.push(expense);
+            const exp = new Expense();
+            exp.expenseId = expense.expenseId;
+            exp.categoryId = expense.categoryId;
+            exp.itemId = expense.itemId;
+            exp.amount = expense.amount;
+            exp.description = expense.description;
+            exp.createdDate = expense.createdDate;
+            exp.updatedDate = expense.updatedDate;
+            exp.expenseDateTime = expense.expenseDateTime;
+            this.selectedExpenseToBeDelete.push(exp);
         }
     }
 
