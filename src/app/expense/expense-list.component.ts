@@ -31,52 +31,47 @@ export class ExpenseListComponent implements OnInit {
     ngOnInit(): void {
         this.month = new Date().getMonth();
         this.year = new Date().getFullYear();
-        console.log(new Date().getFullYear());
-        this.loadExpenses(this.pageIndex, this.pageSize);
+        this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
     }
 
-
-    private loadExpenses(pageIndex, pageSize) {
+    private loadExpenses(pageIndex, pageSize, month, year, fromDate, toDate) {
         this.busyIndicatorService.show();
-        this.expenseService.getExpenses(pageIndex, pageSize).subscribe((result: any) => {
+        this.expenseService.getExpenses(pageIndex, pageSize, month, year, fromDate, toDate).subscribe((result: any) => {
             this.expenses = result.expenses;
             this.expensesCount = result.expensesCount;
-            this.calculateTotalExpense();
+            this.totalExpenses = result.total;
             this.busyIndicatorService.hide();
         });
     }
+
     onSaveExpense(event) {
         // post service // get response true/ false // if true // loadExpense
         this.expenseService.saveExpenses(event).subscribe((result) => {
             if (result) {
-                // event = result;
-                this.loadExpenses(this.pageIndex, this.pageSize);
+                this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
             }
         });
     }
-    calculateTotalExpense() {
-        if (!isNullOrUndefined(this.expenses)) {
-            let total = 0;
-            this.expenses.forEach(x => {
-                total = total + x.amount;
-            });
-            this.totalExpenses = total;
-        }
-    }
+
     onSelectedSearch(event) {
         if (this.selectedSearch === 'byMonth' &&
             !isNullOrUndefined(this.month) && !isNullOrUndefined(this.year)) {
-            console.log(this.month + ' ' + this.year);
+                this.fromDate = null;
+                this.toDate = null;
+            this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
         }
         if (this.selectedSearch === 'byFromToDate' &&
             !isNullOrUndefined(this.fromDate) && !isNullOrUndefined(this.toDate)) {
-                console.log(this.fromDate + '  ' + this.toDate);
+                this.month = null;
+                this.year = null;
+            this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
         }
-        // console.log(event.target.value);
     }
+
     onSelectedExpense(expense) {
         this.selectedExpenseToBeUpdate = expense;
     }
+
     onChecked(expense, event) {
         if (!event.target.checked) {
             const index = this.selectedExpenseToBeDelete.findIndex(x => x.id = expense.id);
@@ -101,14 +96,15 @@ export class ExpenseListComponent implements OnInit {
             // call service to delete
             this.expenseService.deleteExpenses(this.selectedExpenseToBeDelete).subscribe(result => {
                 if (result) {
-                    this.loadExpenses(this.pageIndex, this.pageSize);
+                    this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
                     this.selectedExpenseToBeDelete = [];
                 }
             });
         }
     }
+
     public getPage(event) {
         this.pageIndex = event.pageIndex;
-        this.loadExpenses(event.pageIndex, this.pageSize);
+        this.loadExpenses(event.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
     }
 }

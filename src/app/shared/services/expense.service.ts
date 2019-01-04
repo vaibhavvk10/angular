@@ -11,8 +11,10 @@ export class ExpenseService {
 
     }
 
-    public getExpenses(index: number, pageSize: number): Observable<ExpenseData> {
-        return this.http.get('http://localhost:61677/api/Expense?index=' + index + '&pageSize=' + pageSize)
+    public getExpenses(index: number, pageSize: number, month: number, year: number, fromDate: Date, toDate: Date)
+        : Observable<ExpenseData> {
+        return this.http.get('http://localhost:61677/api/Expense?index=' + index + '&pageSize=' + pageSize +
+            '&month=' + month + '&year=' + year + '&fromDate=' + fromDate + '&toDate=' + toDate)
             .pipe(map((res: any) => {
                 console.log(res);
                 return <ExpenseData>res;

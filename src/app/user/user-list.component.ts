@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private busyIndicatorService: BusyIndicatorService,
     private messageService: SearchNotificationService) {
     this.subscription = this.messageService.messageSubject$.subscribe(v => {
-      this.searchText = v
+      this.searchText = v;
     });
   }
 
