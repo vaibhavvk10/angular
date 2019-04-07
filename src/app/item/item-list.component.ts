@@ -25,18 +25,16 @@ export class ItemListComponent implements OnInit, OnDestroy {
   searchText = '';
   itemsCount = 0;
   subscription: Subscription;
+
   constructor(private itemService: ItemService, public dialog: MatDialog,
-    private busyIndicatorService: BusyIndicatorService,
-    private messageService: SearchNotificationService) {
+    private busyIndicatorService: BusyIndicatorService, private messageService: SearchNotificationService) {
     this.messageService.messageSubject$.subscribe(v => {
       this.searchText = v;
     });
   }
-
   ngOnInit(): void {
     this.loadItems(this.pageIndex, this.pageSize);
   }
-
   public onEdit(item: Item): void {
     const dialogRef = this.dialog.open(ItemDetailsDialogComponent, {
       height: '360px',
@@ -50,7 +48,6 @@ export class ItemListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   public onDelete(id: number): void {
     const dialogRef = this.dialog.open(DeleteItemComponent, {
       height: '200px',
@@ -63,7 +60,6 @@ export class ItemListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   private loadItems(pageIndex, pageSize): void {
     this.busyIndicatorService.show();
     this.itemService.getItems(pageIndex, pageSize).subscribe((result: any) => {
@@ -72,18 +68,15 @@ export class ItemListComponent implements OnInit, OnDestroy {
       this.busyIndicatorService.hide();
     });
   }
-
   public getPage(event) {
     this.pageIndex = event.pageIndex;
     this.loadItems(event.pageIndex, this.pageSize);
   }
-
   public sort(property) {
     this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
   }
-
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     if (!isNullOrUndefined(this.subscription)) {

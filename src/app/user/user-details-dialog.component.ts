@@ -15,11 +15,11 @@ export class UserDetailsDialogComponent {
   url: any;
   selecetdFile: File;
   imagePreview: string;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: User, private userService: UserService) {
     this.url = 'data:image/jpeg;base64,' + data.userImage;
     this.userDetail = data;
   }
-
   onSave(isSaved: boolean) {
     if (isNullOrUndefined(this.userDetail.id) || this.userDetail.id === 0) {
       this.userService.saveUsers(this.userDetail).subscribe(result => {
@@ -35,7 +35,6 @@ export class UserDetailsDialogComponent {
       });
     }
   }
-
   onFileChange(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {

@@ -16,19 +16,20 @@ import { MenuComponent } from './shared/common-component/menu.component';
 import { ExpenseService } from './shared/services/expense.service';
 
 @NgModule({
-  declarations: [
-    AppComponent, BusyIndicatorComponent, MenuComponent
-  ],
+  declarations: [ AppComponent, BusyIndicatorComponent, MenuComponent ],
 
-  imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatProgressSpinnerModule, AppRoutingModule,
-    SharedModule.forRoot()
-  ],
-  entryComponents: [BusyIndicatorComponent],
-  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-  providers: [UserService, BusyIndicatorService, CategoryService, ItemService, ExpenseService],
+  imports: [ BrowserModule, HttpClientModule, BrowserAnimationsModule, MatProgressSpinnerModule,
+    AppRoutingModule, SharedModule.forRoot() ],
+
+  entryComponents: [ BusyIndicatorComponent ],
+  
+  schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ],
+  
+  providers: [ UserService, BusyIndicatorService, CategoryService, ItemService, ExpenseService ],
+  
   exports: [],
-  bootstrap: [AppComponent]
+  
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }

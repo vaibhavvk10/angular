@@ -18,13 +18,12 @@ export class ItemDetailsDialogComponent {
   categories: Category[];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Item, private itemService: ItemService,
-    private categoryService: CategoryService) {
+  private categoryService: CategoryService) {
     this.itemDetail = data;
     this.categoryService.getCategories(1, 0).subscribe(result => {
       this.categories = result.categories;
     });
   }
-
   onSave(isSaved: boolean) {
     if (isNullOrUndefined(this.itemDetail.id) || this.itemDetail.id === 0) {
       console.log(this.itemDetail);

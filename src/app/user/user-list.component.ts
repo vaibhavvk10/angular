@@ -25,18 +25,16 @@ export class UserListComponent implements OnInit, OnDestroy {
   pageSize = 5;
   usersCount = 0;
   subscription: Subscription;
+
   constructor(private userService: UserService, public dialog: MatDialog,
-    private busyIndicatorService: BusyIndicatorService,
-    private messageService: SearchNotificationService) {
+    private busyIndicatorService: BusyIndicatorService, private messageService: SearchNotificationService) {
     this.subscription = this.messageService.messageSubject$.subscribe(v => {
       this.searchText = v;
     });
   }
-
   ngOnInit(): void {
     this.loadUsers(this.pageIndex, this.pageSize);
   }
-
   public onEdit(user: User): void {
     const dialogRef = this.dialog.open(UserDetailsDialogComponent, {
       height: '480px',
@@ -50,7 +48,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   public onDelete(id: number): void {
     const dialogRef = this.dialog.open(DeleteUserComponent, {
       height: '200px',
@@ -63,7 +60,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   private loadUsers(pageIndex, pageSize): void {
     this.busyIndicatorService.show();
     this.userService.getUsers(pageIndex, pageSize).subscribe((result: any) => {
@@ -72,19 +68,16 @@ export class UserListComponent implements OnInit, OnDestroy {
       this.busyIndicatorService.hide();
     });
   }
-
   public getPage(event) {
     this.pageIndex = event.pageIndex;
     this.loadUsers(event.pageIndex, this.pageSize);
   }
-
   public sort(property) {
     this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
     console.log(this.isDesc);
   }
-
   ngOnDestroy(): void {
     // unsubscribe to ensure no memory leaks
     if (!isNullOrUndefined(this.subscription)) {

@@ -25,9 +25,9 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   direction: number;
   searchText = '';
   subscription: Subscription;
+
   constructor(private categoryService: CategoryService, public dialog: MatDialog,
-    private busyIndicatorService: BusyIndicatorService,
-    private messageService: SearchNotificationService) {
+    private busyIndicatorService: BusyIndicatorService, private messageService: SearchNotificationService) {
     this.messageService.messageSubject$.subscribe(v => {
       this.searchText = v;
     });
@@ -36,7 +36,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadCategories(this.pageIndex, this.pageSize);
   }
-
   public onEdit(category: Category): void {
     const dialogRef = this.dialog.open(CategoryDetailsDialogComponent, {
       height: '350px',
@@ -50,7 +49,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   public onDelete(id: number): void {
     const dialogRef = this.dialog.open(DeleteCategoryComponent, {
       height: '200px',
@@ -63,7 +61,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
   private loadCategories(pageIndex, pageSize): void {
     this.busyIndicatorService.show();
     this.categoryService.getCategories(pageIndex, pageSize).subscribe((result: any) => {
@@ -72,18 +69,15 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       this.busyIndicatorService.hide();
     });
   }
-
   public getPage(event) {
     this.pageIndex = event.pageIndex;
     this.loadCategories(event.pageIndex, this.pageSize);
   }
-
   public sort(property) {
     this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
   }
-
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     if (!isNullOrUndefined(this.subscription)) {

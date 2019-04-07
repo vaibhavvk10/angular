@@ -23,17 +23,13 @@ export class ExpenseListComponent implements OnInit {
     year: number;
     fromDate: Date;
     toDate: Date;
-    constructor(private expenseService: ExpenseService,
-        private busyIndicatorService: BusyIndicatorService) {
-
-    }
+    constructor(private expenseService: ExpenseService, private busyIndicatorService: BusyIndicatorService) { }
 
     ngOnInit(): void {
         this.month = new Date().getMonth();
         this.year = new Date().getFullYear();
         this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
     }
-
     private loadExpenses(pageIndex, pageSize, month, year, fromDate, toDate) {
         this.busyIndicatorService.show();
         this.expenseService.getExpenses(pageIndex, pageSize, month, year, fromDate, toDate).subscribe((result: any) => {
@@ -43,7 +39,6 @@ export class ExpenseListComponent implements OnInit {
             this.busyIndicatorService.hide();
         });
     }
-
     onSaveExpense(event) {
         // post service // get response true/ false // if true // loadExpense
         this.expenseService.saveExpenses(event).subscribe((result) => {
@@ -52,8 +47,7 @@ export class ExpenseListComponent implements OnInit {
             }
         });
     }
-
-    onSelectedSearch(event) {
+    onSelectedSearch() {
         if (this.selectedSearch === 'byMonth' &&
             !isNullOrUndefined(this.month) && !isNullOrUndefined(this.year)) {
                 this.fromDate = null;
@@ -67,11 +61,9 @@ export class ExpenseListComponent implements OnInit {
             this.loadExpenses(this.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);
         }
     }
-
     onSelectedExpense(expense) {
         this.selectedExpenseToBeUpdate = expense;
     }
-
     onChecked(expense, event) {
         if (!event.target.checked) {
             const index = this.selectedExpenseToBeDelete.findIndex(x => x.id = expense.id);
@@ -90,7 +82,6 @@ export class ExpenseListComponent implements OnInit {
             this.selectedExpenseToBeDelete.push(exp);
         }
     }
-
     onDelete() {
         if (this.selectedExpenseToBeDelete.length > 0) {
             // call service to delete
@@ -102,7 +93,6 @@ export class ExpenseListComponent implements OnInit {
             });
         }
     }
-
     public getPage(event) {
         this.pageIndex = event.pageIndex;
         this.loadExpenses(event.pageIndex, this.pageSize, this.month, this.year, this.fromDate, this.toDate);

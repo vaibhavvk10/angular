@@ -10,8 +10,8 @@ import { isNullOrUndefined } from 'util';
     selector: 'add-expense',
     templateUrl: './add-expense.component.html',
     styleUrls: ['./add-expense.component.css']
-
 })
+
 export class AddExpenseComponent implements OnInit, OnChanges {
     // tslint:disable-next-line:no-output-on-prefix
     @Output() onSaveExpense = new EventEmitter();
@@ -24,10 +24,8 @@ export class AddExpenseComponent implements OnInit, OnChanges {
     pageSize = 0;
     expense: Expense;
     amount: any;
-    constructor(private categoryService: CategoryService,
-        private itemService: ItemService) {
+    constructor(private categoryService: CategoryService, private itemService: ItemService) { }
 
-    }
     ngOnInit() {
         this.expense = new Expense();
         this.getCategories(this.pageIndex, this.pageSize);
@@ -53,7 +51,6 @@ export class AddExpenseComponent implements OnInit, OnChanges {
             this.getItems(categoryId);
         }
     }
-
     getItems(categoryId) {
         this.itemService.getItemsByCategoryId(categoryId).subscribe(result => {
             if (this.expense.categoryId === undefined) {
@@ -66,7 +63,6 @@ export class AddExpenseComponent implements OnInit, OnChanges {
         this.expense.createdDate = new Date();
         this.onSaveExpense.emit(this.expense);
     }
-
     getCategories(pageIndex, pageSize) {
         this.categoryService.getCategories(pageIndex, pageSize).subscribe(result => {
             this.categories = result.categories;
